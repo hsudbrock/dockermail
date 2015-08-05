@@ -11,9 +11,9 @@ RUN tar -xvf owncloud-8.0.2.tar.bz2 --directory /var/www/ #--strip-components=1
 
 # Generate data directory etc.
 ADD ./create_config.sh /create_config.sh
+RUN chmod u+x /create_config.sh
 ADD ./public_url /public_url
 ADD ./autoconfig.php /var/www/owncloud/config/autoconfig.php
-RUN /create_config.sh
 RUN mkdir /var/www/owncloud/data
 RUN chown -R www-data:www-data /var/www/owncloud
 
@@ -25,4 +25,4 @@ RUN cd /var/www/owncloud/; sudo -u www-data php5 index.php
 RUN php5 /var/www/owncloud/occ app:enable user_external
 RUN cp -pr /var/www/owncloud/data /owncloud_bootstrap
 
-ENTRYPOINT cp -npr /owncloud_bootstrap/. /var/www/owncloud/data; chown -R www-data:www-data /var/www/owncloud/data; a2enmod rewrite; php5enmod imap; apachectl -DFOREGROUND
+ENTRYPOINT /create_config.sh; cp -npr /owncloud_bootstrap/. /var/www/owncloud/data; chown -R www-data:www-data /var/www/owncloud/data; a2enmod rewrite; php5enmod imap; apachectl -DFOREGROUND

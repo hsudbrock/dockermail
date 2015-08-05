@@ -12,11 +12,10 @@ RUN php /var/www/index.php
 RUN chown -R www-data:www-data /var/www
 
 ADD ./create_config.sh /create_config.sh
-
-RUN bash ./create_config.sh
+RUN chmod u+x /create_config.sh
 
 RUN cp -r /var/www/rainloop /var/www/html
 RUN cp -r /var/www/data /var/www/html
 RUN cp /var/www/index.php /var/www/html/index.php
 
-ENTRYPOINT apachectl -DFOREGROUND
+ENTRYPOINT /create_config.sh; apachectl -DFOREGROUND

@@ -13,7 +13,7 @@ echo "<?php
 		'class' => 'OC_User_IMAP',
 		'arguments' => array( " > $CONFIGFILE
 
-for domain in $(cat /domains); do
+for domain in $(cat /dockermail-config/domains); do
 	echo "			'{$domain:143/imap/tls/novalidate-cert}INBOX'," >> $CONFIGFILE
 done
 

@@ -1,5 +1,5 @@
 DIR=`ls /var/www/data/_data_* -d`
-for i in $(cat /domains);
+for i in $(cat /dockermail-config/domains);
  do echo "\
 imap_host = \"$i\" 
 imap_port = 143
