@@ -8,4 +8,5 @@ smtp_host = \"$i\"
 smtp_port = 587
 smtp_secure = \"TLS\"
 smtp_auth = On" > $DIR/_default_/domains/$i.ini;
+ chown -R www-data:www-data $DIR/_default_/domains/$i.ini;
 done;
